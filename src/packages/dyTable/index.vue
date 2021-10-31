@@ -7,42 +7,44 @@
       :header-cell-style="headerStyle"
       :height="height"
       :ref="refs"
+      :show-summary="showSummary"
+      :summary-method="summaryMethod"
     >
       <template v-for="item in tHeads">
         <!-- 标签 -->
         <el-table-column
+          v-if="item.props == 'tag'"
           :key="item.props"
-          v-if="item.props === 'tagName'"
           :fixed="item.fixed"
           :prop="item.props"
           :label="item.label"
           :width="item.width"
-          :align="item.headerAlign"
+          :align="item.align"
           :sortable="item.sortable"
           :class-name="item.className"
           :type="item.type"
         >
-          <template slot-scope="scope">
-            <el-tag :type="scope.row.tagColor" disable-transitions>
-              {{ scope.row.tagName }}
+          <template #default="scope">
+            <el-tag :type="scope.row.tag.tagColor" disable-transitions>
+              {{ scope.row.tag.tagName }}
             </el-tag>
           </template>
         </el-table-column>
         <!-- 操作 -->
         <el-table-column
           :key="item.props"
-          v-else-if="item.props === 'operate'"
+          v-if="item.props === 'operate'"
           :fixed="item.fixed"
           :prop="item.props"
           :label="item.label"
           :width="item.width"
-          :align="item.headerAlign"
+          :align="item.align"
           :sortable="item.sortable"
           :class-name="item.className"
           :type="item.type"
         >
-          <template slot-scope="scope">
-            <slot name="operate" v-bind:scope="scope"></slot>
+          <template #default="scope">
+            <slot name="operate" :scope="scope.row"></slot>
           </template>
         </el-table-column>
 
@@ -54,16 +56,16 @@
           :label="item.label"
           :prop="item.props"
           :width="item.width"
-          :align="item.headerAlign"
+          :align="item.align"
           :sortable="item.sortable"
           :class-name="item.className"
           :type="item.type"
         >
-          <template slot="header" slot-scope="scope">
-            <slot name="customizeHeader" v-bind:customizeHeader="scope"></slot>
+          <template #header="scope">
+            <slot name="customizeHeader"></slot>
           </template>
-          <template slot-scope="scope">
-            <slot name="customizeBody" v-bind:customizeBody="scope"></slot>
+          <template #default="scope">
+            <slot name="customizeBody" :customizeBody="scope.row"></slot>
           </template>
         </el-table-column>
         <el-table-column
@@ -73,7 +75,7 @@
           :prop="item.props"
           :label="item.label"
           :width="item.width"
-          :align="item.headerAlign"
+          :align="item.align"
           :sortable="item.sortable"
           :class-name="item.className"
           :type="item.type"
@@ -85,13 +87,13 @@
           ></dy-column-item>
         </el-table-column>
         <el-table-column
-          v-else
+          v-else-if="item.props !== 'operate' && item.props !== 'tag' && item.props !== 'customize'"
           :key="item.props"
           :fixed="item.fixed"
           :prop="item.props"
           :label="item.label"
           :width="item.width"
-          :align="item.headerAlign"
+          :align="item.align"
           :sortable="item.sortable"
           :class-name="item.className"
           :type="item.type"
@@ -142,7 +144,7 @@ export default {
     },
     summaryMethod: {
       type: Function,
-      default: () => {},
+      default: () => function () {},
     },
     showSummary: {
       type: Boolean,

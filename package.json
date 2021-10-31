@@ -1,12 +1,12 @@
 {
-  "name": "dy-table",
+  "name": "dyingtable",
   "version": "1.0.0",
   "private": false,
   "description": "Author:ClyingDeng. Overview:Re-encapsulate the element-plus form",
   "main": "./dist/dytable.js",
   "scripts": {
     "dev": "rollup -c --w",
-    "lib": "rollup -c ./src/packages/rollup.config.js"
+    "lib": "rollup -c ./rollup.config.js"
   },
   "keywords": [],
   "author": "ClyingDeng",
