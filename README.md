@@ -1,4 +1,4 @@
-# FormatTable
+# DyingTable
 针对 vue3 + element-plus 表格不同样式的二次封装, 便于多次重复使用ElTable。
 
 # 安装与起步
