@@ -6,6 +6,7 @@
 由于Vue 3不再支持 IE11，Element Plus 也不再支持 IE 浏览器。
 
 由于 dytable 插件是基于 Vue、Element Plus，所以也不再支持 IE 浏览器。
+
 [![npm version](https://badge.fury.io/js/dyingtable.svg)](https://badge.fury.io/js/dyingtable)
 
 ## npm安装
